@@ -1,0 +1,28 @@
+# A workflow is a set of jobs GitHub runs for you.
+# This one prints a few lines so you can see a green check on the Actions tab.
+name: Hello CI
+
+# When to run. "push" covers commits you send to GitHub.
+# "pull_request" covers opening or updating a pull request.
+on:
+  push:
+  pull_request:
+
+jobs:
+  say-hello:
+    # A fresh Ubuntu machine GitHub creates just for this job.
+    runs-on: ubuntu-latest
+    steps:
+      # Copy this repository onto that machine.
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Print a message
+        run: echo "Hello from GitHub Actions. This job ran because of a push or a pull request."
+
+      - name: Show which commit this is
+        run: |
+          echo "Repository: ${{ github.repository }}"
+          echo "Branch: ${{ github.ref_name }}"
+          echo "Commit: ${{ github.sha }}"
+          echo "Triggered by: ${{ github.actor }}"
